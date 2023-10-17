@@ -1,0 +1,381 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Tahoma, sans-serif;
+    font-size: 22px;
+    padding: 40px 20px;
+    overflow-x: hidden;
+    height: 1850px;
+}
+h1 {
+    font-size: 50px;
+}
+ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+.bold {
+    font-weight: bold;
+}
+.dib {
+    display: inline-block;
+    vertical-align: top;
+}
+.dib-middle {
+    display: inline-block;
+    vertical-align: middle;
+}
+.space-between {
+    justify-content: space-between;
+}
+.card {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    padding: 20px 25px;
+    margin: 40px 0;
+    font-size: 27px;
+}
+.card1 {
+    font-size: 25px;
+    margin-top: 60px;
+}
+.card2 {
+    margin-top: 300px;
+}
+.red-info {
+    font-size: 21px;
+    margin: 20px;
+    color: red;
+    font-weight: bold;
+}
+.card-info-left {
+    width: 32%;
+}
+.card-info-right {
+    width: 67%;
+}
+.card li {
+    padding: 5px 0;
+}
+.info-value {
+    width: 40%;
+    color: #7b7b7b;
+}
+.info-label {
+    font-weight: bold;
+}
+.card-info-right .info-value {
+    width: 55%;
+}
+.card-result-block {
+    position: relative;
+    background: #ffffff;
+    border-radius: 10px;
+    margin: 40px 0;
+}
+.border-bottom {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #b6b6b6;
+}
+.card-result-left {
+    border-radius: 10px;
+    background: #e8f7f4;
+    width: 47%;
+    margin-right: 5px;
+    font-size: 20px;
+}
+.card-result-right {
+    width: 50%;
+}
+.crl-title {
+    font-size: 20px;
+    padding: 20px 25px;
+}
+.crl-title-left {
+    width: 69%;
+    text-align: center;
+    text-decoration: underline;
+}
+.crl-title-right {
+    width: 29%;
+    text-align: center;
+    text-decoration: underline;
+}
+.crl-result-letter {
+    padding: 20px 25px;
+}
+.subtext {
+    font-size: 17px;
+    color: #7b7b7b;
+}
+.letter {
+    color: white;
+    width: 53px;
+    height: 53px;
+    margin-right: 12px;
+    border-radius: 5px;
+    line-height: 53px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    background: #01999c;
+}
+.card-result-left p {
+    margin: 0;
+}
+.crl-letter-block {
+    width: 69%;
+}
+.crl-mark-block {
+    width: 29%;
+    text-align: center;
+    vertical-align: middle;
+}
+.crl-result-letter li {
+    margin-bottom: 35px;
+}
+.skills {
+    position: relative;
+}
+
+.lines {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.line {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.line_vert {
+    height: 100%;
+    width: 2px;
+    background: #eee;
+}
+
+.line.l--0 {
+    left: 0;
+}
+
+.line.l--40 {
+    left: 40%;
+}
+
+.line.l--50 {
+    left: 50%;
+}
+
+.line.l--65 {
+    left: 65%;
+}
+
+.line.l--100 {
+    left: 100%;
+}
+
+.line__label {
+    display: block;
+    text-align: center;
+    position: absolute;
+    top: 15px;
+    left: 10px;
+}
+
+.line__label.title {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.line__label.last {
+    left: -50px;
+}
+
+.charts {
+    position: relative;
+    z-index: 10;
+    padding-bottom: 16px;
+}
+
+.chart {
+    padding: 64px 0 0;
+}
+
+.chart--horiz {
+    padding-top: 17px;
+    overflow: hidden;
+    margin: 0;
+}
+
+.chart__bar {
+    position: relative;
+    width: 100%;
+    height: 53px;
+    margin-bottom: 35px;
+}
+
+.chart__bar img {
+    width: 12px;
+    position: absolute;
+    right: -7px;
+    top: 0;
+}
+
+.m-0 {
+    margin: 0!important;
+}
+
+.chart__bar_scale {
+    position: absolute;
+    top: -18px;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: #e5efff;
+}
+.chart__bar_line {
+    margin-top: 9px;
+    display: block;
+    height: 46px;
+    border-radius: 4px;
+    padding: 10px 7px 10px 6px;
+    overflow: hidden;
+}
+.scale {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+.scale span {
+    font-size: 9px;
+    color: #ffffff;
+    font-weight: bold;
+    position: absolute;
+    top: -1px;
+    right: 10px;
+}
+.scale.black span {
+    color: #000000;
+}
+.first {
+    background: #d83535;
+}
+.second {
+    background: #fbaf25;
+}
+.third {
+    background: #f5f511;
+}
+.fourth {
+    background: #74ea27;
+}
+.zero {
+    width: 50%;
+}
+.minus2 {
+    width: 48%;
+}
+.minus12 {
+    width: 44%;
+}
+.minus19 {
+    width: 41%;
+}
+.minus20 {
+    width: 40%;
+}
+.minus26 {
+    width: 37%;
+}
+.plus34 {
+    width: 67%;
+}
+.minus49 {
+    width: 26%;
+}
+.minus52 {
+    width: 24%;
+}
+.plus4 {
+    width: 52%;
+}
+.plus6 {
+    width: 53%;
+}
+.plus8 {
+    width: 54%;
+}
+.plus9 {
+    width: 55%;
+}
+.plus14 {
+    width: 57%;
+}
+.plus18 {
+    width: 59%;
+}
+.plus22 {
+    width: 61%;
+}
+.plus28 {
+    width: 63%;
+}
+.plus32 {
+    width: 66%;
+}
+.plus36 {
+    width: 68%;
+}
+.plus44 {
+    width: 72%;
+}
+.plus48 {
+    width: 74%;
+}
+.plus52 {
+    width: 76%;
+}
+.plus58 {
+    width: 79%;
+}
+.plus62 {
+    width: 81%;
+}
+.plus69 {
+    width: 85%;
+}
+.plus72 {
+    width: 86%;
+}
+.plus78 {
+    width: 89%;
+}
+.plus82 {
+    width: 91%;
+}
+.color1 {
+    background: #77c6ff;
+}
+.color2 {
+    background: #03989e;
+}
+.color3 {
+    background: #f69520;
+}
+.color4 {
+    background: #0062a9;
+}
+.t {
+    display: inline-block;
+    width: 100%;
+    height: 26px;
+}
