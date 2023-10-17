@@ -37,4 +37,20 @@ class AnswerRepository implements AnswerInterface
 
         return true;
     }
+
+    /**
+     * @param Request $request
+     * @return Answer|null
+     */
+    public function findByParam(Request $request): Answer
+    {
+        $answer = Answer::query()->with('question');
+        if ($request->query('id')) {
+            $answer->where(['id' => $request->query('id')]);
+        }
+        if ($request->query('question_id')) {
+            $answer->where(['question_id' => $request->query('question_id')]);
+        }
+        return $answer->first();
+    }
 }

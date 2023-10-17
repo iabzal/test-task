@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Client\AnswerController;
 use App\Http\Controllers\Client\LoginController;
 use App\Http\Controllers\Client\QuestionController;
 use App\Http\Controllers\Client\SubcategoryController;
@@ -45,5 +46,6 @@ Route::prefix('client')->group(function () {
         Route::get('/request', [QuestionController::class, 'list'])->name('client.request.list');
         Route::post('/request', [QuestionController::class, 'create'])->name('client.request.create');
         Route::get('/get-subcategories/{category_id}', [SubcategoryController::class, 'findByCategoryId'])->name('subcategory.find');
+        Route::get('/answer', [AnswerController::class, 'findByParam'])->name('subcategory.find');
     });
 });

@@ -52,7 +52,16 @@
                                         {{ request.created_at }}
                                     </td>
                                     <td class="text-center">
-                                        {{ request.status }}
+                                        <span v-if="request.status === 'Создан'">
+                                            {{ request.status }}
+                                        </span>
+                                        <a href="javascript:void(0);" class="text-decoration-underline" v-else @click="viewAnswer(request.id)"
+                                              style="color: #0000b4;"
+                                              data-bs-toggle="modal"
+                                              data-bs-target="#modal-2">
+                                            {{ request.status }}
+                                            <i class="fa fa-eye"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -62,87 +71,114 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Modal -->
-        <div class="modal" id="modal-1" tabindex="-1" aria-labelledby="testModal" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="testModal">Создание заявки</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <form @submit.prevent="submit">
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-4">
-                                        <label>Тема</label>
-                                        <input required type="text" class="form-control" placeholder="Тема" v-model="form.title">
-                                        <div v-if="errors.title" class="alert alert-danger mt-2">
-                                            {{ errors.title }}
+            <!-- Modal -->
+            <div class="modal" id="modal-1" tabindex="-1" aria-labelledby="testModal" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="testModal">Создание заявки</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <form @submit.prevent="submit">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-4">
+                                            <label>Тема</label>
+                                            <input required type="text" class="form-control" placeholder="Тема" v-model="form.title">
+                                            <div v-if="errors.title" class="alert alert-danger mt-2">
+                                                {{ errors.title }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-4">
-                                        <label>Сообщение</label><br>
-                                        <textarea required class="form-control" placeholder="Сообщение" v-model="form.message"
-                                                  cols="30" rows="5"></textarea>
-                                        <div v-if="errors.message" class="alert alert-danger mt-2">
-                                            {{ errors.message }}
+                                    <div class="col-md-12">
+                                        <div class="mb-4">
+                                            <label>Сообщение</label><br>
+                                            <textarea required class="form-control" placeholder="Сообщение" v-model="form.message"
+                                                      cols="30" rows="5"></textarea>
+                                            <div v-if="errors.message" class="alert alert-danger mt-2">
+                                                {{ errors.message }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-4">
-                                        <Multiselect
-                                            required
-                                            @input="getSubcategoryById"
-                                            v-model="form.category_id"
-                                            placeholder="Выберите язык теста"
-                                            :options="categories"
-                                        />
-                                        <div v-if="errors.category_id" class="alert alert-danger mt-2">
-                                            {{ errors.category_id }}
+                                    <div class="col-md-6">
+                                        <div class="mb-4">
+                                            <Multiselect
+                                                required
+                                                @input="getSubcategoryById"
+                                                v-model="form.category_id"
+                                                placeholder="Выберите язык теста"
+                                                :options="categories"
+                                            />
+                                            <div v-if="errors.category_id" class="alert alert-danger mt-2">
+                                                {{ errors.category_id }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-4">
-                                        <Multiselect
-                                            v-model="form.subcategory_id"
-                                            placeholder="Выберите вид теста"
-                                            :options="subcategories"
-                                        />
-                                        <div v-if="errors.subcategory_id" class="alert alert-danger mt-2">
-                                            {{ errors.subcategory_id }}
+                                    <div class="col-md-6">
+                                        <div class="mb-4">
+                                            <Multiselect
+                                                v-model="form.subcategory_id"
+                                                placeholder="Выберите вид теста"
+                                                :options="subcategories"
+                                            />
+                                            <div v-if="errors.subcategory_id" class="alert alert-danger mt-2">
+                                                {{ errors.subcategory_id }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-4">
-                                        <label>Логотип компании</label>
-                                        <input type="file" class="form-control" @change="attachFile">
-                                        <div v-if="errors.file" class="alert alert-danger mt-2">
-                                            {{ errors.file }}
+                                    <div class="col-md-12">
+                                        <div class="mb-4">
+                                            <label>Логотип компании</label>
+                                            <input type="file" class="form-control" @change="attachFile">
+                                            <div v-if="errors.file" class="alert alert-danger mt-2">
+                                                {{ errors.file }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary py-2 px-4" data-bs-dismiss="modal">
+                                    Отмена
+                                </button>
+                                <div>
+                                    <button type="submit" class="btn btn-primary py-2 px-4">
+                                        Отправить
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal" id="modal-2" tabindex="-1" aria-labelledby="testModal2" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="testModal2">Ответ на заявку</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div><b>Название:</b></div>
+                            <div>{{answer?.question.title}}</div>
+                            <div><b>Сообщение:</b></div>
+                            <div>{{answer?.question.message}}</div>
+                            <hr>
+                            <div><b>Ответ:</b></div>
+                            <div>{{answer?.answer}}</div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary py-2 px-4" data-bs-dismiss="modal">
-                                Отмена
+                                Закрыть
                             </button>
-                            <div>
-                                <button type="submit" class="btn btn-primary py-2 px-4">
-                                    Отправить
-                                </button>
-                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -172,6 +208,7 @@ export default {
         categories: Array,
     },
     setup() {
+        const answer = ref(null);
         const subcategories = ref([]);
 
         const form = reactive({
@@ -243,6 +280,21 @@ export default {
                 },
             });
         }
+
+        const viewAnswer = (questionId) => {
+            fetch(`/client/answer?question_id=${questionId}`)
+                .then(data => {
+                    if (!data.ok) {
+                        throw Error(data.status);
+                    }
+                    return data.json();
+                }).then(data => {
+                answer.value = data
+            }).catch(e => {
+                console.log(e);
+            });
+        }
+
         return {
             form,
             search,
@@ -251,6 +303,8 @@ export default {
             submit,
             getSubcategoryById,
             subcategories,
+            viewAnswer,
+            answer,
         };
     },
 };

@@ -4,9 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Http\Interface;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Answer;
 use Illuminate\Http\Request;
 
 interface AnswerInterface
@@ -17,4 +15,10 @@ interface AnswerInterface
      * @return bool
      */
     public function createAnswer(Request $request, int $questionId): bool;
+
+    /**
+     * @param Request $request
+     * @return Answer|null
+     */
+    public function findByParam(Request $request): ?Answer;
 }

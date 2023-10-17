@@ -35,8 +35,13 @@
                                                 <p>{{question.subcategory.name}}</p>
                                             </div>
                                         </div>
-                                        <div class="col-md-12" v-if="question.file">
-                                            <img :src="'/storage/' + question.file" alt="" style="width: 300px;">
+                                        <div class="col-md-12 mb-4" v-if="question.file">
+                                            <div v-if="isImage(question.file)">
+                                                <img :src="'/storage/' + question.file" alt="" style="width: 300px;">
+                                            </div>
+                                            <div v-else>
+                                                <a :href="'/storage/' + question.file" target="_blank" class="text-danger">Прикреплен документ. Нажмите чтобы посмотреть.</a>
+                                            </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="mb-4">
@@ -64,7 +69,7 @@
 import LayoutAdmin from "../../../Layouts/Admin.vue";
 
 import { Head, Link } from "@inertiajs/inertia-vue3";
-import {reactive} from "vue";
+import {computed, reactive} from "vue";
 import Swal from "sweetalert2";
 import {Inertia} from "@inertiajs/inertia";
 
@@ -85,6 +90,15 @@ export default {
             answer: null
         });
 
+        const fileExtension = computed(() => {
+            const extension = props.question.file.split('.').pop().toLowerCase();
+            return ['png', 'jpg'].includes(extension) ? 'image' : 'document';
+        });
+
+        const isImage = () => {
+           return fileExtension.value === 'image';
+        }
+
         const submit = () => {
             Inertia.post(`/admin/question/${props.question.id}/answer`, {
                 answer: form.answer,
@@ -103,7 +117,8 @@ export default {
         }
         return {
             form,
-            submit
+            isImage,
+            submit,
         };
     },
 };
