@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Closure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -14,21 +15,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static Client findOrFail(int $id)
  * @method static where(array $array)
  * @method static count()
- * @method pluck(string $string)
+ * @method static orderByDesc(string $string)
+ * @method static latest()
  * @property int $id
- * @property string $full_name
- * @property string $title
- * @property string $phone_number
- * @property string $email
- * @property string $login
- * @property string $password
- * @property string $start_time
- * @property string $end_time
- * @property int $max_test_count
- * @property string $logo
- * @property boolean $is_show_branding
+ * @property string $name
  */
-class Client extends Authenticatable
+class Subcategory extends Model
 {
     /**
      * fillable
@@ -36,10 +28,8 @@ class Client extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'full_name',
-        'email',
-        'login',
-        'password',
+        'name',
+        'category_id',
     ];
 
     use HasFactory;

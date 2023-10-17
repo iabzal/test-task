@@ -1,23 +1,25 @@
 <?php
 
+declare(strict_types = 1);
+
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\LoginController;
+use App\Http\Controllers\Client\QuestionController;
+use App\Http\Controllers\Client\SubcategoryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
 Route::get('/', function () {
     if (auth()->guard('client')->check()) {
-        return redirect()->route('client.request');
+        return redirect()->route('client.request.list');
     }
     return Inertia::render('Client/Auth/Login');
 })->name('client.page.login');
 
-Route::post('/clients/login', LoginController::class)->name('client.login');
-
 Route::get('/register', function () {
     if (auth()->guard('client')->check()) {
-        return redirect()->route('client.request');
+        return redirect()->route('client.request.list');
     }
     return Inertia::render('Client/Auth/Register');
 })->name('client.register');
@@ -32,9 +34,13 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('client')->group(function () {
 
+    Route::post('/login', LoginController::class)->name('client.login');
+
     Route::post('/create', App\Http\Controllers\Client\RegisterController::class)->name('client.create');
 
     Route::group(['middleware' => 'client'], function () {
-        Route::get('/request', ClientController::class)->name('client.request');
+        Route::get('/request', [QuestionController::class, 'list'])->name('client.request.list');
+        Route::post('/request', [QuestionController::class, 'create'])->name('client.request.create');
+        Route::get('/get-subcategories/{category_id}', [SubcategoryController::class, 'findByCategoryId'])->name('subcategory.find');
     });
 });

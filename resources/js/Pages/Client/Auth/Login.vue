@@ -84,9 +84,7 @@ export default {
             password: '',
         });
         const submit = () => {
-            Inertia.post('/login', {
-
-                // Данные
+            Inertia.post('/client/login', {
                 login: form.login,
                 password: form.password,
             });

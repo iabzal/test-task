@@ -37,6 +37,6 @@ class LoginController extends Controller
 
         auth()->guard('client')->login($client);
 
-        return redirect()->route('client.tests');
+        return redirect()->route('client.request.list');
     }
 }

@@ -35,6 +35,6 @@ class RegisterController extends Controller
     public function __invoke(Request $request): RedirectResponse
     {
         $this->clientRepository->registerClient($request);
-        return redirect()->route('client.login');
+        return redirect()->route('client.request.list');
     }
 }

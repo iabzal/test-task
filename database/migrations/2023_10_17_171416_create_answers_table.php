@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('responses', function (Blueprint $table) {
+        Schema::create('answers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('request_id')->references('id')->on('requests')->cascadeOnDelete();
+            $table->foreignId('question_id')->references('id')->on('questions')->cascadeOnDelete();
             $table->text('answer');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('responses');
+        Schema::dropIfExists('answers');
     }
 };

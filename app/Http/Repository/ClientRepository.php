@@ -4,10 +4,8 @@ declare(strict_types = 1);
 
 namespace App\Http\Repository;
 
-use App\Domains\User\Models\User;
 use App\Http\Interface\ClientInterface;
 use App\Models\Client;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ClientRepository implements ClientInterface

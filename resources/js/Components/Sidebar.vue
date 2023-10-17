@@ -33,18 +33,6 @@
                 </div>
             </div>
             <ul class="nav flex-column pt-3 pt-md-0">
-                <li class="nav-item mt-2">
-                    <img
-                        class="navbar-brand-dark"
-                        src="/assets/images/logo.png"
-                        style="width: 70px; height: 70px; object-fit: contain;"
-                        alt="Logo"/>
-                </li>
-
-                <li
-                    role="separator"
-                    class="dropdown-divider mt-3 mb-3 border-gray-700"
-                ></li>
 
                 <li
                     class="nav-item"
@@ -75,89 +63,14 @@
                     :class="{ active: $page.url.startsWith('/admin/users') }"
                 >
                     <Link
-                        href="/admin/users"
+                        href="/admin/questions"
                         class="nav-link d-flex justify-content-between"
                     >
                         <span>
                             <span class="sidebar-icon">
-                                <i class="fas fa-users-cog"></i>
+                                <i class="fas fa-paper-plane"></i>
                             </span>
-                            <span class="sidebar-text">Администраторы</span>
-                        </span>
-                    </Link>
-                </li>
-
-                <li
-                    class="nav-item"
-                    :class="{ active: $page.url.startsWith('/admin/clients') }"
-                >
-                    <Link
-                        href="/admin/clients"
-                        class="nav-link d-flex justify-content-between"
-                    >
-                        <span>
-                            <span class="sidebar-icon">
-                              <i class="fas fa-building"></i>
-                            </span>
-                            <span class="sidebar-text">Компании</span>
-                        </span>
-                    </Link>
-                </li>
-
-                <li
-                    class="nav-item"
-                    :class="{
-                        active: $page.url.startsWith('/admin/departments'),
-                    }"
-                >
-                    <Link
-                        href="/admin/departments"
-                        class="nav-link d-flex justify-content-between"
-                    >
-                        <span>
-                            <span class="sidebar-icon">
-                               <i class="fas fa-project-diagram"></i>
-                            </span>
-                            <span class="sidebar-text">Отделы</span>
-                        </span>
-                    </Link>
-                </li>
-
-                <li
-                    class="nav-item"
-                    :class="{ active: $page.url.startsWith('/admin/employees') }"
-                >
-                    <Link
-                        href="/admin/employees"
-                        class="nav-link d-flex justify-content-between"
-                    >
-                        <span>
-                            <span class="sidebar-icon">
-                                 <i class="fas fa-users"></i>
-                            </span>
-                            <span class="sidebar-text">Сотрудники</span>
-                        </span>
-                    </Link>
-                </li>
-
-                <li
-                    role="separator"
-                    class="dropdown-divider mt-2 mb-2 border-gray-700"
-                ></li>
-
-                <li
-                    class="nav-item"
-                    :class="{ active: $page.url.startsWith('/admin/tests') }"
-                >
-                    <Link
-                        href="/admin/tests"
-                        class="nav-link d-flex justify-content-between"
-                    >
-                        <span>
-                            <span class="sidebar-icon">
-                                <i class="fas fa-question-circle"></i>
-                            </span>
-                            <span class="sidebar-text">Тесты</span>
+                            <span class="sidebar-text">Заявки</span>
                         </span>
                     </Link>
                 </li>
