@@ -2,182 +2,97 @@
     <Head>
         <title>Заявки</title>
     </Head>
-    <div class="container-fluid mb-5 mt-2">
-        <div class="row">
-            <div class="col-md-3 col-12 mb-2">
-                <button
-                    class="btn btn-md btn-primary w-100"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modal-1"
-                >
-                    <i class="fa fa-plus-circle"></i> Создать заявку
-                </button>
-            </div>
+    <div class="row">
+        <div class="col-md-3 col-12 mb-2">
+            <Link
+                href="/client/request/add"
+                class="btn btn-md btn-primary w-100"
+            >
+                <i class="fa fa-plus-circle"></i> Создать заявку
+            </Link>
         </div>
-        <div class="row mt-1">
-            <div class="col-md-12">
-                <div class="card border-0 shadow">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table
-                                class="table table-bordered table-centered table-nowrap mb-0 rounded"
-                            >
-                                <thead class="thead-dark">
-                                <tr class="border-0">
-                                    <th
-                                        class="border-0 rounded-start"
-                                        style="width: 5%"
-                                    >
-                                        №
-                                    </th>
-                                    <th class="border-0">Тема</th>
-                                    <th class="border-0">Категория</th>
-                                    <th class="border-0">Время создания</th>
-                                    <th class="border-0">Статус</th>
-                                </tr>
-                                </thead>
-                                <div class="mt-2"></div>
-                                <tbody>
-                                <tr v-for="( request, index ) in questionList.data" :key="index">
-                                    <td class="fw-bold text-center">
-                                        {{
-                                            ++index +
-                                            (questionList.current_page - 1) *
-                                            questionList.per_page
-                                        }}
-                                    </td>
-                                    <td>{{ request.title }}</td>
-                                    <td>{{ request.category.name }}</td>
-                                    <td class="text-center">
-                                        {{ request.created_at }}
-                                    </td>
-                                    <td class="text-center">
+    </div>
+    <div class="row mt-1">
+        <div class="col-md-12">
+            <div class="card border-0 shadow">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table
+                            class="table table-bordered table-centered table-nowrap mb-0 rounded"
+                        >
+                            <thead class="thead-dark">
+                            <tr class="border-0">
+                                <th
+                                    class="border-0 rounded-start"
+                                    style="width: 5%"
+                                >
+                                    №
+                                </th>
+                                <th class="border-0">Тема</th>
+                                <th class="border-0">Категория</th>
+                                <th class="border-0">Время создания</th>
+                                <th class="border-0">Статус</th>
+                            </tr>
+                            </thead>
+                            <div class="mt-2"></div>
+                            <tbody>
+                            <tr v-for="( request, index ) in questionList.data" :key="index">
+                                <td class="fw-bold text-center">
+                                    {{
+                                        ++index +
+                                        (questionList.current_page - 1) *
+                                        questionList.per_page
+                                    }}
+                                </td>
+                                <td>{{ request.title }}</td>
+                                <td>{{ request.category.name }}</td>
+                                <td class="text-center">
+                                    {{ request.created_at }}
+                                </td>
+                                <td class="text-center">
                                         <span v-if="request.status === 'Создан'">
                                             {{ request.status }}
                                         </span>
-                                        <a href="javascript:void(0);" class="text-decoration-underline" v-else @click="viewAnswer(request.id)"
-                                              style="color: #0000b4;"
-                                              data-bs-toggle="modal"
-                                              data-bs-target="#modal-2">
-                                            {{ request.status }}
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <Pagination :links="questionList.links" align="end"/>
+                                    <a href="javascript:void(0);" class="text-decoration-underline" v-else
+                                       @click="viewAnswer(request.id)"
+                                       style="color: #0000b4;"
+                                       data-bs-toggle="modal"
+                                       data-bs-target="#modal-2">
+                                        {{ request.status }}
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
+                    <Pagination :links="questionList.links" align="end"/>
                 </div>
             </div>
+        </div>
 
-            <!-- Modal -->
-            <div class="modal" id="modal-1" tabindex="-1" aria-labelledby="testModal" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="testModal">Создание заявки</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <form @submit.prevent="submit">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="mb-4">
-                                            <label>Тема</label>
-                                            <input required type="text" class="form-control" placeholder="Тема" v-model="form.title">
-                                            <div v-if="errors.title" class="alert alert-danger mt-2">
-                                                {{ errors.title }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-4">
-                                            <label>Сообщение</label><br>
-                                            <textarea required class="form-control" placeholder="Сообщение" v-model="form.message"
-                                                      cols="30" rows="5"></textarea>
-                                            <div v-if="errors.message" class="alert alert-danger mt-2">
-                                                {{ errors.message }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-4">
-                                            <Multiselect
-                                                required
-                                                @input="getSubcategoryById"
-                                                v-model="form.category_id"
-                                                placeholder="Выберите язык теста"
-                                                :options="categories"
-                                            />
-                                            <div v-if="errors.category_id" class="alert alert-danger mt-2">
-                                                {{ errors.category_id }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-4">
-                                            <Multiselect
-                                                v-model="form.subcategory_id"
-                                                placeholder="Выберите вид теста"
-                                                :options="subcategories"
-                                            />
-                                            <div v-if="errors.subcategory_id" class="alert alert-danger mt-2">
-                                                {{ errors.subcategory_id }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-4">
-                                            <label>Логотип компании</label>
-                                            <input type="file" class="form-control" @change="attachFile">
-                                            <div v-if="errors.file" class="alert alert-danger mt-2">
-                                                {{ errors.file }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary py-2 px-4" data-bs-dismiss="modal">
-                                    Отмена
-                                </button>
-                                <div>
-                                    <button type="submit" class="btn btn-primary py-2 px-4">
-                                        Отправить
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+        <!-- Modal -->
+        <div class="modal" id="modal-2" tabindex="-1" aria-labelledby="testModal2" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="testModal2">Ответ на заявку</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                     </div>
-                </div>
-            </div>
-
-            <!-- Modal -->
-            <div class="modal" id="modal-2" tabindex="-1" aria-labelledby="testModal2" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="testModal2">Ответ на заявку</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div><b>Название:</b></div>
-                            <div>{{answer?.question.title}}</div>
-                            <div><b>Сообщение:</b></div>
-                            <div>{{answer?.question.message}}</div>
-                            <hr>
-                            <div><b>Ответ:</b></div>
-                            <div>{{answer?.answer}}</div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary py-2 px-4" data-bs-dismiss="modal">
-                                Закрыть
-                            </button>
-                        </div>
+                    <div class="modal-body">
+                        <div><b>Название:</b></div>
+                        <div>{{ answer?.question.title }}</div>
+                        <div><b>Сообщение:</b></div>
+                        <div>{{ answer?.question.message }}</div>
+                        <hr>
+                        <div><b>Ответ:</b></div>
+                        <div>{{ answer?.answer }}</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary py-2 px-4" data-bs-dismiss="modal">
+                            Закрыть
+                        </button>
                     </div>
                 </div>
             </div>
@@ -205,11 +120,9 @@ export default {
     props: {
         errors: Object,
         questionList: Object,
-        categories: Array,
     },
     setup() {
         const answer = ref(null);
-        const subcategories = ref([]);
 
         const form = reactive({
             category_id: null,
@@ -219,35 +132,12 @@ export default {
             file: null,
         });
 
-        const attachFile = (event) => {
-            const file = event.target.files[0];
-            form.file = file;
-        };
-
         const search = ref(
             "" || new URL(document.location).searchParams.get("q")
         );
         const handleSearch = () => {
             Inertia.get("/client/request", {
                 q: search.value,
-            });
-        };
-
-        const getSubcategoryById = (selectedValue) => {
-            fetch(`/client/get-subcategories/${selectedValue}`)
-                .then(data => {
-                    form.test_type = [];
-                    if (!data.ok) {
-                        throw Error(data.status);
-                    }
-                    return data.json();
-                }).then(data => {
-                if (data.status) {
-                    form.subcategory_id = null;
-                    subcategories.value = data.message;
-                }
-            }).catch(e => {
-                console.log(e);
             });
         };
 
@@ -275,7 +165,7 @@ export default {
                         showConfirmButton: false,
                         timer: 2000,
                     }).then(() => {
-                        location.reload();
+                        modalButton.value.click();
                     });
                 },
             });
@@ -299,15 +189,10 @@ export default {
             form,
             search,
             handleSearch,
-            attachFile,
             submit,
-            getSubcategoryById,
-            subcategories,
             viewAnswer,
             answer,
         };
     },
 };
 </script>
-
-<style src="@vueform/multiselect/themes/default.css"></style>

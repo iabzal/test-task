@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\ResponseFactory;
+use Nette\Schema\ValidationException;
 
 class QuestionController extends Controller
 {
@@ -36,11 +37,21 @@ class QuestionController extends Controller
      */
     public function list(): Response|ResponseFactory
     {
-        $categories = $this->categoryRepository->list();
         $result = $this->questionRepository->list();
         return inertia('Client/Question/Index', [
-            'categories' => $categories,
             'questionList' => $result['questionList'],
+        ]);
+    }
+
+    /**
+     *
+     * @return Response|ResponseFactory
+     */
+    public function add(): Response|ResponseFactory
+    {
+        $categories = $this->categoryRepository->list();
+        return inertia('Client/Question/Create', [
+            'categories' => $categories,
         ]);
     }
 
@@ -51,7 +62,14 @@ class QuestionController extends Controller
      */
     public function create(Request $request): RedirectResponse
     {
-        $this->questionRepository->create($request);
+        $result = $this->questionRepository->create($request);
+        if (is_array($result)) {
+            if (isset($result['error'])) {
+                return redirect()->back()->withErrors([
+                    'hasQuestion' => $result['error']
+                ]);
+            }
+        }
         return redirect()->route('client.request.list');
     }
 

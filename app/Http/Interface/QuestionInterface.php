@@ -19,9 +19,9 @@ interface QuestionInterface
 
     /**
      * @param Request $request
-     * @return bool
+     * @return bool|array
      */
-    public function create(Request $request): bool;
+    public function create(Request $request): bool|array;
 
     /**
      * @param int $id

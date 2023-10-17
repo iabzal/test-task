@@ -44,6 +44,7 @@ Route::prefix('client')->group(function () {
 
     Route::group(['middleware' => 'client'], function () {
         Route::get('/request', [QuestionController::class, 'list'])->name('client.request.list');
+        Route::get('/request/add', [QuestionController::class, 'add'])->name('client.request.add');
         Route::post('/request', [QuestionController::class, 'create'])->name('client.request.create');
         Route::get('/get-subcategories/{category_id}', [SubcategoryController::class, 'findByCategoryId'])->name('subcategory.find');
         Route::get('/answer', [AnswerController::class, 'findByParam'])->name('subcategory.find');

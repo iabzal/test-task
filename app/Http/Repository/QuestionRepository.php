@@ -55,9 +55,9 @@ class QuestionRepository implements QuestionInterface
     /**
      *
      * @param Request $request
-     * @return bool
+     * @return bool|array
      */
-    public function create(Request $request): bool
+    public function create(Request $request): bool|array
     {
         $currentClientID = auth()->guard('client')->user()->id;
         $request->validate([
@@ -67,7 +67,18 @@ class QuestionRepository implements QuestionInterface
             'subcategory_id' => 'nullable|integer',
             'file' => 'nullable|file|mimes:jpeg,png,pdf,doc,docx',
         ]);
+        $lastRequest = Question::where(['client_id' => $currentClientID])
+            ->orderBy('created_at', 'desc')
+            ->first();
 
+        if ($lastRequest) {
+            $timeSinceLastRequest = now()->diffInHours($lastRequest->created_at);
+            if ($timeSinceLastRequest < 24) {
+                return [
+                    'error' => "Вы уже создали заявку на сегодня."
+                ];
+            }
+        }
 
         $file = null;
         if ($request->file != null) {
