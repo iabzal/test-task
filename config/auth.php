@@ -43,7 +43,7 @@ return [
 
         'client' => [
             'driver' => 'session',
-            'provider' => 'companies',
+            'provider' => 'clients',
         ],
     ],
 
@@ -70,7 +70,7 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        'companies' => [
+        'clients' => [
             'driver' => 'eloquent',
             'model' => App\Models\Client::class,
         ],

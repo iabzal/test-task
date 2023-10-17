@@ -5,7 +5,7 @@
     <div class="container-fluid mb-5 mt-2">
         <div class="row">
 
-            <a href="/admin/companies" class="col-12 col-sm-6 col-xl-3 mb-4">
+            <a href="/admin/clients" class="col-12 col-sm-6 col-xl-3 mb-4">
                 <div class="card border-0 shadow">
                     <div class="card-body">
                         <div class="row d-block d-xl-flex align-items-center">
@@ -16,13 +16,13 @@
                                 </div>
                                 <div class="d-sm-none">
                                     <h2 class="h5">Компании</h2>
-                                    <h3 class="fw-extrabold mb-1">{{ companies }}</h3>
+                                    <h3 class="fw-extrabold mb-1">{{ clients }}</h3>
                                 </div>
                             </div>
                             <div class="col-12 col-xl-7 px-xl-0">
                                 <div class="d-none d-sm-block">
                                     <h2 class="h5">Компании</h2>
-                                    <h3 class="fw-extrabold mb-1">{{ companies }}</h3>
+                                    <h3 class="fw-extrabold mb-1">{{ clients }}</h3>
                                 </div>
                             </div>
                         </div>
@@ -130,7 +130,7 @@ export default {
 
     // Props
     props: {
-        companies: Number,
+        clients: Number,
         departments: Number,
         employees: Number,
         tests: Number,

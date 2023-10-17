@@ -23,13 +23,13 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request): Response|ResponseFactory
     {
-        $companies = Client::count();
+        $clients = Client::count();
         $departments = Department::count();
         $employees = Employee::count();
         $tests = Test::count();
 
         return inertia('Admin/Dashboard/Index', [
-            'companies' => $companies,
+            'clients' => $clients,
             'departments' => $departments,
             'employees' => $employees,
             'tests' => $tests,

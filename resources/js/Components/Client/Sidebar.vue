@@ -43,63 +43,24 @@
 
                 <li
                     role="separator"
-                    class="dropdown-divider mt-3 mb-3 border-gray-700"
+                    class="dropdown-divider mt-4 mb-3 border-gray-700"
                 ></li>
 
                 <li
                     class="nav-item"
                     :class="{
-                        active: $page.url.startsWith('/admin/dashboard'),
+                        active: $page.url.startsWith('/client/tests'),
                     }"
                 >
                     <Link
-                        href="/admin/dashboard"
+                        href="/client/tests"
                         class="nav-link d-flex justify-content-between"
                     >
                         <span>
                             <span class="sidebar-icon">
-                               <i class="fas fa-home"></i>
+                                <i class="fa fa-edit"></i>
                             </span>
-                            <span class="sidebar-text">Главная</span>
-                        </span>
-                    </Link>
-                </li>
-
-                <li
-                    role="separator"
-                    class="dropdown-divider mt-2 mb-2 border-gray-700"
-                ></li>
-
-                <li
-                    class="nav-item"
-                    :class="{ active: $page.url.startsWith('/admin/users') }"
-                >
-                    <Link
-                        href="/admin/users"
-                        class="nav-link d-flex justify-content-between"
-                    >
-                        <span>
-                            <span class="sidebar-icon">
-                                <i class="fas fa-users-cog"></i>
-                            </span>
-                            <span class="sidebar-text">Администраторы</span>
-                        </span>
-                    </Link>
-                </li>
-
-                <li
-                    class="nav-item"
-                    :class="{ active: $page.url.startsWith('/admin/clients') }"
-                >
-                    <Link
-                        href="/admin/clients"
-                        class="nav-link d-flex justify-content-between"
-                    >
-                        <span>
-                            <span class="sidebar-icon">
-                              <i class="fas fa-building"></i>
-                            </span>
-                            <span class="sidebar-text">Компании</span>
+                            <span class="sidebar-text">Тесты</span>
                         </span>
                     </Link>
                 </li>
@@ -107,11 +68,11 @@
                 <li
                     class="nav-item"
                     :class="{
-                        active: $page.url.startsWith('/admin/departments'),
+                        active: $page.url.startsWith('/client/departments'),
                     }"
                 >
                     <Link
-                        href="/admin/departments"
+                        href="/client/departments"
                         class="nav-link d-flex justify-content-between"
                     >
                         <span>
@@ -125,39 +86,24 @@
 
                 <li
                     class="nav-item"
-                    :class="{ active: $page.url.startsWith('/admin/employees') }"
+                    :class="{ active: $page.url.startsWith('/client/employees') }"
                 >
-                    <Link
-                        href="/admin/employees"
-                        class="nav-link d-flex justify-content-between"
-                    >
-                        <span>
-                            <span class="sidebar-icon">
-                                 <i class="fas fa-users"></i>
-                            </span>
-                            <span class="sidebar-text">Сотрудники</span>
-                        </span>
-                    </Link>
                 </li>
 
                 <li
-                    role="separator"
-                    class="dropdown-divider mt-2 mb-2 border-gray-700"
-                ></li>
-
-                <li
+                    v-if="$page.props.auth.client.is_show_branding === 1"
                     class="nav-item"
-                    :class="{ active: $page.url.startsWith('/admin/tests') }"
+                    :class="{ active: $page.url.startsWith('/client/account') }"
                 >
                     <Link
-                        href="/admin/tests"
+                        href="/client/account"
                         class="nav-link d-flex justify-content-between"
                     >
                         <span>
                             <span class="sidebar-icon">
-                                <i class="fas fa-question-circle"></i>
+                                 <i class="fas fa-cog"></i>
                             </span>
-                            <span class="sidebar-text">Тесты</span>
+                            <span class="sidebar-text">Настройки</span>
                         </span>
                     </Link>
                 </li>

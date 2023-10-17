@@ -29,8 +29,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class Client extends Authenticatable
 {
-    use HasFactory;
-
     /**
      * fillable
      *
@@ -39,16 +37,11 @@ class Client extends Authenticatable
     protected $fillable = [
         'full_name',
         'email',
-        'title',
-        'phone_number',
         'login',
         'password',
-        'start_time',
-        'end_time',
-        'max_test_count',
-        'logo',
-        'is_show_branding',
     ];
+
+    use HasFactory;
 
     /**
      * The attributes that should be hidden for serialization.
