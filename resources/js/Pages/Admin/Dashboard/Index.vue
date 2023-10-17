@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Панель управления - Приложение онлайн-тестирования</title>
+        <title>Главная</title>
     </Head>
     <div class="container-fluid mb-5 mt-2">
         <div class="row">
@@ -12,7 +12,7 @@
                             <div
                                 class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
                                 <div class="icon-shape icon-shape-info rounded me-4 me-sm-0">
-                                    <i class="fas fa-building fs-3"></i>
+                                    <i class="fas fa-paper-plane fs-3"></i>
                                 </div>
                                 <div class="d-sm-none">
                                     <h2 class="h5">Заявки</h2>
@@ -55,9 +55,6 @@ export default {
     // Props
     props: {
         questions: Number,
-        departments: Number,
-        employees: Number,
-        tests: Number,
     }
 
 }

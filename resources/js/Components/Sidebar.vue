@@ -60,7 +60,7 @@
 
                 <li
                     class="nav-item"
-                    :class="{ active: $page.url.startsWith('/admin/users') }"
+                    :class="{ active: $page.url.startsWith('/admin/questions') }"
                 >
                     <Link
                         href="/admin/questions"

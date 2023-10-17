@@ -40,7 +40,7 @@ class QuestionController extends Controller
         $result = $this->questionRepository->list();
         return inertia('Client/Question/Index', [
             'categories' => $categories,
-            'requestList' => $result['requestList'],
+            'questionList' => $result['questionList'],
         ]);
     }
 

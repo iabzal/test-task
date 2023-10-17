@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * @method static when(mixed $q, Closure $param)
  * @method static create(array $array)
- * @method static Client findOrFail(int $id)
+ * @method static Question findOrFail(int $id)
  * @method static where(array $array)
  * @method static count()
  * @method static orderByDesc(string $string)
@@ -40,6 +40,7 @@ class Question extends Model
         'subcategory_id',
         'client_id',
         'file',
+        'status',
     ];
 
     use HasFactory;

@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Http\Controllers\Client\QuestionController;
+use App\Http\Interface\AnswerInterface;
 use App\Http\Interface\CategoryInterface;
 use App\Http\Interface\ClientInterface;
 use App\Http\Interface\QuestionInterface;
+use App\Http\Repository\AnswerRepository;
 use App\Http\Repository\CategoryRepository;
 use App\Http\Repository\ClientRepository;
 use App\Http\Repository\QuestionRepository;
@@ -31,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             CategoryInterface::class,
             CategoryRepository::class
+        );
+        $this->app->bind(
+            AnswerInterface::class,
+            AnswerRepository::class
         );
     }
 

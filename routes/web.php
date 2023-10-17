@@ -28,6 +28,8 @@ Route::prefix('admin')->group(function () {
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/dashboard', App\Http\Controllers\Admin\DashboardController::class)->name('admin.dashboard');
         Route::get('/questions', [\App\Http\Controllers\Admin\QuestionController::class, 'list'])->name('admin.questions');
+        Route::get('/question/{id}', [\App\Http\Controllers\Admin\QuestionController::class, 'findById'])->name('admin.question.view');
+        Route::post('/question/{id}/answer', [\App\Http\Controllers\Admin\QuestionController::class, 'answer'])->name('admin.question.answer');
 
         Route::resource('/request', UserController::class, ['as' => 'admin']);
     });

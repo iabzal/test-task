@@ -8,6 +8,9 @@ use App\Enums\QuestionEnum;
 use App\Http\Interface\QuestionInterface;
 use App\Models\Category;
 use App\Models\Question;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,10 +22,10 @@ class QuestionRepository implements QuestionInterface
      */
     public function list(): array
     {
-        $requestList = Question::with('category')->with('subcategory')
+        $questionList = Question::with('category')->with('subcategory')
             ->latest()->paginate(20);
 
-        $requestList->getCollection()->transform(function ($item) {
+        $questionList->getCollection()->transform(function ($item) {
             return [
                 'id' => $item->id,
                 'title' => $item->title,
@@ -36,8 +39,17 @@ class QuestionRepository implements QuestionInterface
         });
 
         return [
-            'requestList' => $requestList,
+            'questionList' => $questionList,
         ];
+    }
+
+    /**
+     * @param int $id
+     * @return Builder|Builder[]|Collection|Model
+     */
+    public function findById(int $id): Model|Collection|Builder|array
+    {
+        return Question::with('category')->with('subcategory')->findOrFail($id);
     }
 
     /**
@@ -81,6 +93,20 @@ class QuestionRepository implements QuestionInterface
             ]);
         }
 
+        return true;
+    }
+
+    /**
+     * @param int $questionId
+     * @param string $status
+     * @return bool
+     */
+    public function updateStatus(int $questionId, string $status): bool
+    {
+        $question = Question::findOrFail($questionId);
+        $question->update([
+            'status' => $status,
+        ]);
         return true;
     }
 }

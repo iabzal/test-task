@@ -38,12 +38,12 @@
                                 </thead>
                                 <div class="mt-2"></div>
                                 <tbody>
-                                <tr v-for="( request, index ) in requestList.data" :key="index">
+                                <tr v-for="( request, index ) in questionList.data" :key="index">
                                     <td class="fw-bold text-center">
                                         {{
                                             ++index +
-                                            (requestList.current_page - 1) *
-                                            requestList.per_page
+                                            (questionList.current_page - 1) *
+                                            questionList.per_page
                                         }}
                                     </td>
                                     <td>{{ request.title }}</td>
@@ -58,7 +58,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <Pagination :links="requestList.links" align="end"/>
+                        <Pagination :links="questionList.links" align="end"/>
                     </div>
                 </div>
             </div>
@@ -168,7 +168,7 @@ export default {
     },
     props: {
         errors: Object,
-        requestList: Object,
+        questionList: Object,
         categories: Array,
     },
     setup() {
