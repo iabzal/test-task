@@ -65,7 +65,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="modal-1" tabindex="-1" aria-labelledby="testModal" aria-hidden="true">
+        <div class="modal" id="modal-1" tabindex="-1" aria-labelledby="testModal" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -237,8 +237,9 @@ export default {
                         icon: 'success',
                         showConfirmButton: false,
                         timer: 2000,
+                    }).then(() => {
+                        location.reload();
                     });
-                    handleSearch();
                 },
             });
         }

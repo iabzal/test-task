@@ -27,6 +27,7 @@ Route::get('/register', function () {
 Route::prefix('admin')->group(function () {
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/dashboard', App\Http\Controllers\Admin\DashboardController::class)->name('admin.dashboard');
+        Route::get('/questions', [\App\Http\Controllers\Admin\QuestionController::class, 'list'])->name('admin.questions');
 
         Route::resource('/request', UserController::class, ['as' => 'admin']);
     });

@@ -19,32 +19,23 @@ class QuestionRepository implements QuestionInterface
      */
     public function list(): array
     {
-        $categories = Category::all();
-        $resultCategories = [];
-        if (count($categories) > 0) {
-            $formattedCategories = $categories->map(function (Category $category) {
-                return [
-                    'value' => $category->id,
-                    'label' => $category->name,
-                ];
-            });
-            $resultCategories = $formattedCategories->toArray();
-        }
-        $requestList = Question::with('category')
+        $requestList = Question::with('category')->with('subcategory')
             ->latest()->paginate(20);
 
         $requestList->getCollection()->transform(function ($item) {
             return [
+                'id' => $item->id,
                 'title' => $item->title,
+                'message' => $item->message,
                 'name' => $item->name,
                 'category' => $item->category,
+                'subcategory' => $item->subcategory,
                 'created_at' => $item->created_at->format('d.m.Y H:i:s'),
                 'status' => QuestionEnum::fromName($item->status),
             ];
         });
 
         return [
-            'categories' => $resultCategories,
             'requestList' => $requestList,
         ];
     }
@@ -65,6 +56,12 @@ class QuestionRepository implements QuestionInterface
             'file' => 'nullable|file|mimes:jpeg,png,pdf,doc,docx',
         ]);
 
+
+        $file = null;
+        if ($request->file != null) {
+            $file = Storage::disk('public')->put('uploads', $request->file('file'));
+        }
+
         if ($request->subcategory_id) {
             Question::create([
                 'title' => $request->title,
@@ -72,6 +69,7 @@ class QuestionRepository implements QuestionInterface
                 'category_id' => $request->category_id,
                 'subcategory_id' => $request->subcategory_id,
                 'client_id' => $currentClientID,
+                'file' => $file,
             ]);
         } else {
             Question::create([
@@ -79,11 +77,8 @@ class QuestionRepository implements QuestionInterface
                 'message' => $request->message,
                 'category_id' => $request->category_id,
                 'client_id' => $currentClientID,
+                'file' => $file
             ]);
-        }
-
-        if ($request->file != null) {
-            Storage::disk('public')->put('uploads', $request->file('file'));
         }
 
         return true;

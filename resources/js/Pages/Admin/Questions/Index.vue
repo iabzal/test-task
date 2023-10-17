@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Администраторы </title>
+        <title>Заявки </title>
     </Head>
     <div class="container-fluid mb-5 mt-2">
         <div class="row">
@@ -49,8 +49,10 @@
                                     >
                                         №
                                     </th>
-                                    <th class="border-0">Имя</th>
-                                    <th class="border-0">Email</th>
+                                    <th class="border-0">Тема</th>
+                                    <th class="border-0">Сообщение</th>
+                                    <th class="border-0">Категория</th>
+                                    <th class="border-0">Подкатегория</th>
                                     <th
                                         class="border-0 rounded-end"
                                         style="width: 15%"
@@ -63,41 +65,44 @@
                                 <tbody>
                                 <tr
                                     v-for="(
-                                            user, index
-                                        ) in users.data"
+                                            request, index
+                                        ) in requestList.data"
                                     :key="index"
                                 >
                                     <td class="fw-bold text-center">
                                         {{
                                             ++index +
-                                            (users.current_page - 1) *
-                                            users.per_page
+                                            (requestList.current_page - 1) *
+                                            requestList.per_page
                                         }}
                                     </td>
-                                    <td>{{ user.name }}</td>
+                                    <td>{{ request.title }}</td>
+                                    <td>
+                                        {{ request.message.length > 20 ? request.message.substring(0, 30) + '...' : request.message }}
+                                    </td>
                                     <td class="text-center">
-                                        {{ user.email }}
+                                        {{ request.category.name }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ request.subcategory ? request.subcategory.name : "" }}
                                     </td>
                                     <td class="text-center">
                                         <Link
-                                            :href="`/admin/users/${user.id}/edit`"
+                                            v-if="request.status === 'Создан'"
+                                            :href="`/admin/question/${request.id}/answer`"
                                             class="btn btn-sm btn-info border-0 shadow me-2"
                                             type="button"
-                                        ><i class="fa fa-pencil-alt"></i
+                                        ><i class="fa fa-reply"></i
                                         ></Link>
-                                        <button
-                                            v-if="$page.props.auth.user.id !== user.id"
-                                            @click.prevent="destroy(user.id)"
-                                            class="btn btn-sm btn-danger border-0"
-                                        >
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                        <div v-else>
+                                            Отвечен
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <Pagination :links="users.links" align="end" />
+                        <Pagination :links="requestList.links" align="end" />
                     </div>
                 </div>
             </div>
@@ -137,7 +142,7 @@ export default {
 
     // Props
     props: {
-        users: Object,
+        requestList: Object,
     },
 
     // Инициализация Composition API
