@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Client;
 
@@ -8,6 +8,7 @@ use App\Models\Client;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -22,16 +23,13 @@ class LoginController extends Controller
     public function __invoke(Request $request): RedirectResponse
     {
         $this->validate($request, [
-            'login'      => 'required',
-            'password'  => 'required',
+            'login' => 'required',
+            'password' => 'required',
         ]);
 
-        $client = Client::where([
-            'login'      => $request->login,
-            'password'  => $request->password
-        ])->first();
+        $client = Client::where(['login' => $request->login])->first();
 
-        if(!$client) {
+        if (!$client || !Hash::check($request->password, $client->password)) {
             return redirect()->back()->with('error', 'Неправильный логин или пароль');
         }
 

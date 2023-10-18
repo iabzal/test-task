@@ -28,7 +28,7 @@ class ClientRepository implements ClientInterface
             'full_name' => $request->fullName,
             'email' => $request->email,
             'login' => $request->login,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
         ]);
 
         return true;
